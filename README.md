@@ -1,27 +1,48 @@
 # Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.7.
+Este proyecto fue generado con [Angular CLI](https://github.com/angular/angular-cli) version 18.0.7.
 
-## Development server
+## Descripción
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Aplicación web para gestionar la información de los cursos ofrecidos por Cesde. La aplicación permite
+los administradores agregar, editar y eliminar cursos, así como también mostrar una lista de todos
+los cursos disponibles. Igualmente, la aplicación  permite administrar los docentes que
+dictarán cada curso..
 
-## Code scaffolding
+## Clonar proyecto y configuración
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+# clonar proyecto con el siguiente comando:
+$ git clone https://github.com/Montesandres/frontend-cesde.git
+```
 
-## Build
+```bash
+#Instalar dependencias
+$ npm install
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Compilar y correr el proyecto
 
-## Running unit tests
+```bash
+# correr el proeycto en modo desarrollo
+$ npm run start
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+# Compilar el proyecto, el proyecto compilado queda en la carpeta dist
+$ npm run build
+```
 
-## Running end-to-end tests
+Despues de correr el proyecto, debemos abir una ventana en el navegador y poner la siguiente dirección: _http://localhost:4200/_
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Explicación y funcionamiento del backend
 
-## Further help
+Este FronEnd está hecho en Angular 18 que es un framework hecho para trabajar en typeScript de forma práctica y estructurada que permita la escalabilidad de las aplicaciones.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Se utilizó la librería de PrimeNg Y Prime Flex para la ayuda con el diseño de los componentes html y css
+
+
+## COnfiguración de ur del server
+
+En la carpeta enviroment, hay una cobjento llamado enviroment con la url donde se va a conectar. Aquí s epuede cambiar dependiendo de la url del backend.
+
+
+

@@ -123,13 +123,13 @@ export class SubjectsComponent {
 
     try {
       if (!this.isEditing) {
-        const newSubject: Subject = {
+        const newSubject: UpdateSubject = {
           name: this.subjectForm.value.name ?? '',
           duration: this.subjectForm.value.duration ?? 0,
           price: this.subjectForm.value.price ?? 0,
           startDate: formattedDate,
           description: this.subjectForm.value.description ?? '',
-          professor: this.subjectForm.value.professor!,
+          professorId: this.subjectForm.value.professor?.id!,
         };
         const res = await this.subjectsService.addSubject(newSubject);
         this.subjects.push(res);
