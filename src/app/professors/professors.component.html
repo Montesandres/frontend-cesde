@@ -1,0 +1,97 @@
+<p-toast />
+<p-confirmDialog />
+<div class="container">
+  <p-table #dt2 [value]="professors" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading"
+    [paginator]="true" [globalFilterFields]="['id','document', 'name', 'email']"
+    [tableStyle]="{ 'min-width': '75rem' }">
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <p-button class="mr-8" [rounded]="true" (click)="showCreateForm()">+</p-button>
+        <h3>LISTA DE DOCENTES</h3>
+      </div>
+
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width:20%">Id</th>
+        <th style="width:20%">Cédula</th>
+        <th style="width:20%">Nombre</th>
+        <th style="width:20%">Email</th>
+        <th style="width:20%">Opciones</th>
+      </tr>
+      <tr>
+        <th>
+          <p-columnFilter type="text" field="id" placeholder="Buscar por Id" ariaLabel="Filter Id" />
+        </th>
+        <th>
+          <p-columnFilter type="text" field="document" placeholder="Buscar por Cédula" ariaLabel="Filter document" />
+        </th>
+        <th>
+          <p-columnFilter type="text" field="name" placeholder="Buscar por Nombre"
+            ariaLabel="Filter Name" />
+        </th>
+        <th>
+          <p-columnFilter type="text" field="email" placeholder="Buscar por email" ariaLabel="Filter Email" />
+        </th>
+        <th>
+          <div>Opciones de administrador</div>
+        </th>
+
+
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-professor>
+      <tr>
+        <td>
+          {{ professor.id }}
+        </td>
+        <td>
+          {{professor.document}}
+        </td>
+        <td>
+          {{professor.name}}
+        </td>
+        <td>
+          {{professor.email}}
+        </td>
+        <td class="options-container">
+          <i (click)="showUpdateSubject(professor)" class="pi pi-pencil" style="color:orange"></i>
+          <i (click)="deleteSubject($event, professor.id)" class="pi pi-trash" style="color:red"></i>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="5">No customers found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+
+
+
+<!-- dialog -->
+<p-dialog [header]="modalTitle" [modal]="true" [(visible)]="modalVisible" [style]="{ width: '30rem' }">
+
+  <span class="p-text-secondary block mb-5">{{modalSubtitle}}</span>
+  <form [formGroup]="professorForm">
+    <div class="flex align-items-center gap-3 mb-3">
+      <label for="professorId" class="font-semibold w-6rem">Cédula</label>
+      <input pInputText id="professorId" formControlName="document" class="w-6" autocomplete="off" />
+    </div>
+    <div class="flex align-items-center gap-3 mb-3">
+      <label for="professorName" class="font-semibold w-6rem">Nombre</label>
+      <input pInputText id="professorName" formControlName="name" class="w-6" autocomplete="off" />
+    </div>
+    <div class="flex align-items-center gap-3 mb-3">
+      <label for="professorName" class="font-semibold w-6rem">Correo</label>
+      <input pInputText id="professorEmail" formControlName="email" class="w-6" autocomplete="off" />
+    </div>
+  </form>
+
+  <div class="flex justify-content-end gap-2">
+    <p-button label="Cancel" severity="secondary" (onClick)="modalVisible = false" />
+    <p-button [disabled]="professorForm.invalid" label="Save" (onClick)="saveSubject()" />
+  </div>
+</p-dialog>

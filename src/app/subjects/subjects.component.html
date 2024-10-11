@@ -1,0 +1,125 @@
+<p-toast />
+<p-confirmDialog />
+<div class="container">
+  <p-table #dt2 [value]="subjects" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading"
+    [paginator]="true" [globalFilterFields]="['id','name', 'description', 'duration', 'status','price','startDate']"
+    [tableStyle]="{ 'min-width': '75rem' }">
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <p-button class="mr-8" [rounded]="true" (click)="showCreateForm()">+</p-button>
+        <h3>LISTA DE MATERIAS</h3>
+      </div>
+
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width:15%">Id</th>
+        <th style="width:15%">Nombre</th>
+        <th style="width:15%">Descripcion</th>
+        <th style="width:15%">Duración</th>
+        <th style="width:15%">Precio</th>
+        <th style="width:15%">Fecha inicio</th>
+        <th style="width:10%">Opciones</th>
+      </tr>
+      <tr>
+        <th>
+          <p-columnFilter type="text" field="id" placeholder="Buscar por Id" ariaLabel="Filter Id" />
+        </th>
+        <th>
+          <p-columnFilter type="text" field="name" placeholder="Buscar por Nombre" ariaLabel="Filter Name" />
+        </th>
+        <th>
+          <p-columnFilter type="text" field="description" placeholder="Buscar por descripcion"
+            ariaLabel="Filter Description" />
+        </th>
+        <th>
+          <p-columnFilter type="text" field="duration" placeholder="Buscar por duracion" ariaLabel="Filter Duration" />
+        </th>
+        <th>
+          <p-columnFilter type="text" field="price" placeholder="Buscar por precio" ariaLabel="Filter Price" />
+        </th>
+        <th>
+          <p-columnFilter type="text" field="startDate" placeholder="Buscar por fecha inicio"
+            ariaLabel="Filter StartDate" />
+        </th>
+        <th>
+          <div>Opciones de administrador</div>
+        </th>
+
+
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-subject>
+      <tr>
+        <td>
+          {{ subject.id }}
+        </td>
+        <td>
+          {{subject.name}}
+        </td>
+        <td>
+          {{subject.description}}
+        </td>
+        <td>
+          {{subject.duration}}
+        </td>
+        <td>
+          {{subject.price}}
+        </td>
+        <td>
+          {{subject.startDate | date:'yyyy-MM-dd'}}
+        </td>
+        <td class="options-container">
+          <i (click)="showUpdateSubject(subject)" class="pi pi-pencil" style="color:orange"></i>
+          <i (click)="deleteSubject($event, subject.id)" class="pi pi-trash" style="color:red"></i>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="5">No customers found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+
+
+
+<!-- dialog -->
+<p-dialog [header]="modalTitle" [modal]="true" [(visible)]="modalVisible" [style]="{ width: '30rem' }">
+
+  <span class="p-text-secondary block mb-5">{{modalSubtitle}}</span>
+  <form [formGroup]="subjectForm">
+    <div class="flex align-items-center gap-3 mb-3">
+      <label for="subjectName" class="font-semibold w-6rem">Nombre</label>
+      <input pInputText id="subjectName" formControlName="name" class="w-6" autocomplete="off" />
+    </div>
+    <div class="flex align-items-center gap-3 mb-3">
+      <label for="subjectName" class="font-semibold w-6rem">Duracion (semanas)</label>
+      <p-inputNumber mode="decimal" formControlName="duration" class="w-6rem" [showButtons]="true" inputId="minmax-buttons" [min]="0"
+        [max]="200" />
+    </div>
+    <div class="flex align-items-center gap-3 mb-3">
+      <label for="subjectName" class="font-semibold w-6rem">Precio</label>
+      <p-inputNumber inputId="currency-co" formControlName="price" class="w-12rem" mode="currency" currency="COP" locale="es-CO" />
+    </div>
+    <div class="flex align-items-center gap-3 mb-3">
+      <label for="subjectName"  class="font-semibold w-6rem">Fecha de inicio</label>
+      <p-calendar  [showTime]="false" formControlName="startDate" class="flex-auto" />
+    </div>
+    <div class="flex align-items-center gap-3 mb-3">
+      <label for="subjectName"  class="font-semibold w-6rem">Descripcion</label>
+      <input formControlName="description" pInputText id="inputDescription"  class="w-6" autocomplete="off" />
+    </div>
+    <div class="flex align-items-center gap-3 mb-3">
+      <label for="subjectName" class="font-semibold w-6rem">Docente encargado</label>
+      <p-dropdown formControlName="professor" class="w-6" [options]="professors" optionLabel="name" placeholder="Seleccione un profesor " />
+    </div>
+  </form>
+
+  <div class="flex justify-content-end gap-2">
+    <p-button label="Cancel" severity="secondary" (onClick)="modalVisible = false" />
+    <p-button [disabled]="subjectForm.invalid" label="Save" (onClick)="saveSubject()" />
+  </div>
+</p-dialog>
